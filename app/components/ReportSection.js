@@ -27,15 +27,31 @@ const StyledReportSection = styled.section`
 `;
 const ReportSectionContainer = styled.div`
 padding: 4rem 6rem;
+@media only screen and (max-width: 1100px) {
+	& {
+		padding: 4rem 4rem;
+	}
+}
+@media only screen and (max-width: 600px) {
+	& {
+		padding: 4rem 3rem;
+	}
+}
 `;
 
-const Top = styled.div``;
+const Top = styled.div`
+	& h2 {
+		line-height: 1.2;
+		padding: 0 0 0.5rem 0;
+	}
+`;
 
 const SubtitleContainer = styled.h3`
 	color: var(--darkblue);
 	font-family: var(--sans-serif);
 	font-size: var(--reportsheading);
 	padding: 0 0 1rem 0;
+	line-height: 1.2;
 `;
 
 const BlockContent = styled.div`
@@ -59,6 +75,12 @@ const Bottom = styled.div`
 	justify-content: space-between;
 	gap: 4rem;
 	padding: 4rem 0 0 0;
+
+	@media only screen and (max-width: 800px) {
+		& {
+			flex-direction: column;
+		}
+	}
 `;
 
 const BottomImagesContainer = styled.div``;
@@ -73,6 +95,12 @@ background: rgb(255,185,1);
 background: linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
 background: -moz-linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
 background: -webkit-linear-gradient(0deg, rgba(255,185,1,1) 0%, rgba(255,127,0,1) 45%, rgba(254,99,18,1) 89%, rgba(253,98,32,1) 100%);
+
+@media only screen and (max-width: 800px) {
+	& {
+		max-width: 100px;
+	}
+}
 `;
 
 const ContentLeftContainer = styled.div`
@@ -82,6 +110,11 @@ const ContentLeftContainer = styled.div`
 	color: var(--darkblue);
 	font-family: var(--sans-serif);
 	font-size: var(--body);
+	}
+	@media only screen and (max-width: 800px) {
+		& {
+			width: 100%;
+		}
 	}
 `;
 const ImageContainer = styled.div`
@@ -93,6 +126,11 @@ const ImageContainer = styled.div`
 		height: auto;
 		max-width: 100%;
 	}
+	@media only screen and (max-width: 800px) {
+		& {
+			width: 100%;
+		}
+	}
 `;
 const BottomContent = styled.div``;
 const BottomImage = styled.div``;
@@ -102,6 +140,13 @@ const BottomImages = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 4rem;
+
+	@media only screen and (max-width: 800px) {
+		& {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+	}
 `;
 
 export default function ReportSection(props) {

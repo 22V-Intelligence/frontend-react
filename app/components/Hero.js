@@ -128,7 +128,7 @@ const ScrollContent = styled.div`
 
 const ArchiveHeroContent = styled.div`
 	width: 100%;
-	padding: 14rem 6rem 0 6rem;
+	padding: 15rem 6rem 0 6rem;
 	display: flex;
 	gap: 4rem;
 	align-items: center;
@@ -204,6 +204,15 @@ const ArchiveContentContainerSingle = styled.div`
 		font-weight: 400;
 		font-size: var(--body);
 		padding: 2rem 0 0 0;
+	}
+	@media only screen and (max-width: 820px) {
+		& h1 {
+			font-family: var(--sans-serif);
+			line-height: 1.2;
+			margin: auto;
+			text-align: center;
+			font-size: 3.5rem;
+		}
 	}
 `;
 

@@ -1,5 +1,7 @@
 "use client";
 import styled from "styled-components";
+import Image from "next/image";
+import checkMark from '../../public/images/icons/checkMark.svg?url';
 
 const ContentBlockSection = styled.section`
 	min-height: 50vh;
@@ -8,6 +10,28 @@ const ContentBlockSection = styled.section`
 	margin: auto;
 	padding: 12rem 6rem;
 	font-family: var(--sans-serif);
+
+	& .checkMark {display: none;}
+
+	[data-page="/thank-you-contact"] &,
+	[data-page="/thank-you-rsvp"] & {
+		padding: 18rem 0 20rem 0rem;
+		max-width: 45%;
+		width: 100%;
+		margin: auto;
+		display: block;
+	}
+
+	[data-page="/thank-you-contact"] & .checkMark,
+	[data-page="/thank-you-rsvp"] & .checkMark {
+		display: block;
+		margin: auto;
+		padding: 0 0 3rem 0;
+		width: 100%;
+		text-align: center;
+		max-width: 70px;
+		height: auto;
+	}
 
 	& hr {
 		height: 1px;
@@ -86,8 +110,25 @@ const ContentBlockSection = styled.section`
 			line-height: 1.2;
 		}
 	}
+	@media only screen and (max-width: 820px){
+		[data-page="/thank-you-contact"] &,
+		[data-page="/thank-you-rsvp"] & & {
+			padding: 18rem 4rem 20rem 4rem;
+			max-width: 80%;
+			width: 100%;
+		}
+	}
 	@media only screen and (max-width: 700px) {
 		& {padding: 16rem 2rem 6rem 2rem;}
+	}
+
+	@media only screen and (max-width: 600px){
+		[data-page="/thank-you-contact"] &,
+		[data-page="/thank-you-rsvp"] & {
+			padding: 18rem 3rem 20rem 3rem;
+			max-width: 100%;
+			width: 100%;
+		}
 	}
 `;
 const ContentBlockInnerContainer = styled.div``;
@@ -95,6 +136,7 @@ const ContentBlockInnerContainer = styled.div``;
 export default function ContentBlock(props) {
 	return (
 		<ContentBlockSection>
+			<Image className="checkMark" src={checkMark} alt="check mark icon" width={88} height={88}/>
 			<ContentBlockInnerContainer
 				dangerouslySetInnerHTML={{ __html: props.Content }}
 			/>

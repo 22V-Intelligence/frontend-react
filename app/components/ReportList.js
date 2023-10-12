@@ -82,12 +82,13 @@ const ReportGridCard = styled.article`
 		border-radius: 1rem;
 	}
 
-	&:hover h2 a,
+	&:hover h2,
 	&:hover p {
 		color: var(--white);
+		font-family: var(--sans-serif);
 	}
 
-	&:hover a img {
+	&:hover img.angledArrow {
 		filter: contrast(0) sepia(100%) hue-rotate(-15deg) saturate(3);
 	}
 
@@ -198,6 +199,9 @@ const Author = styled.p`
 `;
 
 const TitleContainer = styled.h2`
+	font-family: var(--sans-serif);
+	line-height: 1.2;
+
 	& a {
 		font-family: var(--sans-serif);
 		font-weight: 600;
@@ -311,13 +315,7 @@ export default function ReportList(props) {
 											</Date>
 										</MetaContainer>
 										<TitleContainer>
-											<Link
-												href={
-													`/reports/${report?.attributes?.slug}` ||
-													""
-												}>
 												{report?.attributes?.Title}
-											</Link>
 										</TitleContainer>
 										<AuthorContainer>
 											<Author>Author</Author>
@@ -326,6 +324,7 @@ export default function ReportList(props) {
 												alt="angled arrow"
 												width={30}
 												height={30}
+												className="angledArrow"
 											/>
 										</AuthorContainer>
 									</ReportGridCard>
