@@ -3,8 +3,8 @@ import sectionRenderer from "./utils/sectionRenderer";
 import getPageBySlug from "../lib/getPageBySlug";
 
 export default async function Page(props) {
-	const data = await getPageBySlug("/");
-	const sections = data[0]?.attributes?.Sections;
+    const data = await getPageBySlug("/");
+    const sections = data[0]?.attributes?.Sections;
 
-	return sectionRenderer(sections);
+    return sectionRenderer(sections);
 }
