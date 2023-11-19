@@ -4,15 +4,15 @@ import { WebinarPage } from '@/app/components/collections/WebinarPage';
 
 export default async function Page({ params }) {
 	const data = await getWebinarBySlug(params?.webinar);
-	const sections = await getPageSections(data?.data[0]?.id, `webinars`);
-
-	const title = data?.data[0]?.attributes?.Title;
-	const publishedAt = data?.data[0]?.attributes?.publishedAt;
+	const { attributes, id } = data?.data[0];
+	const sections = await getPageSections(id, `webinars`);
 
 	return (
 		<WebinarPage
-			title={title}
-			publishedAt={publishedAt}
+			title={attributes?.Title}
+			thumbnail={attributes?.Thumbnail}
+			type={attributes?.Type}
+			publishedAt={attributes?.publishedAt}
 			sections={sections}
 		/>
 	);
