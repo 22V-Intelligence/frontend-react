@@ -7,7 +7,7 @@ export const ReportPage = ({ title, publishedAt, sections }) => {
 	return (
 		<>
 			<Hero
-				reportTitle={title}
+				Title={title}
 				Type="postSingle"
 				publishedAt={publishedAt}
 			/>

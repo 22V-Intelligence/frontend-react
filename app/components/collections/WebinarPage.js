@@ -1,16 +1,28 @@
 'use client';
 
 import sectionRenderer from '../../utils/sectionRenderer';
-import Hero from '@/app/components/Hero';
+import MediaThumbnailHero from '@/app/components/MediaThumbnailHero';
+import CenteredTextHero from '../CenteredTextHero';
 
-export const WebinarPage = ({ title, publishedAt, sections }) => {
+export const WebinarPage = ({
+	title,
+	thumbnail,
+	description,
+	type,
+	sections,
+}) => {
 	return (
 		<>
-			<Hero
-				reportTitle={title}
-				Type="postSingle"
-				publishedAt={publishedAt}
-			/>
+			{type === 'Podcast' ? (
+				<MediaThumbnailHero
+					title={title}
+					thumbnail={thumbnail}
+					smallTextTop="New Podcast Episode"
+					smallTextBottom="22VI Macro Fast Break"
+				/>
+			) : (
+				<CenteredTextHero title={title} text={description} />
+			)}
 			{sectionRenderer(sections)}
 		</>
 	);

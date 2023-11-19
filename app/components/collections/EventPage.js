@@ -23,7 +23,7 @@ export const EventPage = async ({ pageData }) => {
 	return (
 		<>
 			<Hero
-				reportTitle={title}
+				Title={title}
 				Type="postSingle"
 				publishedAt={publishedAt}
 			/>
