@@ -13,6 +13,7 @@ import FeatureList from "../components/FeatureList";
 import Form from "../components/Form";
 import EventList from "../components/EventList";
 import AnalystsGrid from "../components/AnalystsGrid";
+import WebinarList from "../components/WebinarList";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -95,6 +96,11 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.analysts-grid":
 				sectionsToDisplay.push(
 					<AnalystsGrid key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.webinar-list":
+				sectionsToDisplay.push(
+					<WebinarList key={`section-${index}`} {...section} />
 				);
 				break;
 			default:
