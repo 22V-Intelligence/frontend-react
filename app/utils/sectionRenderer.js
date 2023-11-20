@@ -14,6 +14,8 @@ import Form from "../components/Form";
 import EventList from "../components/EventList";
 import AnalystsGrid from "../components/AnalystsGrid";
 import WebinarList from "../components/WebinarList";
+import PodcastDetails from "../components/PodcastDetails";
+import SpotifyPodcastEmbed from "../components/SpotifyPodcastEmbed"
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -101,6 +103,16 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.webinar-list":
 				sectionsToDisplay.push(
 					<WebinarList key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.podcast-details":
+				sectionsToDisplay.push(
+					<PodcastDetails key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.spotify-podcast-embed":
+				sectionsToDisplay.push(
+					<SpotifyPodcastEmbed key={`section-${index}`} {...section} />
 				);
 				break;
 			default:

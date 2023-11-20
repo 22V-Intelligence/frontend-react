@@ -21,6 +21,7 @@
   --smallheading: clamp(3rem, 3vw, 6rem);
   --quote: clamp(2rem, 2vw, 4rem);
   --reportsheading: clamp(1.8rem, 1.8vw, 3.2rem);
+  --sectionHeading: clamp(1.8rem, 1.8vw, 3.2rem);
   --sub-heading: clamp(1.5rem, 1.5vw, 3rem);
   --body-large: clamp(1.2rem, 1.2vw, 2.4rem);
   --body: clamp(1rem, 1vw, 2rem);
