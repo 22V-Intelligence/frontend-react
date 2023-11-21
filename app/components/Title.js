@@ -15,6 +15,8 @@ const TitleStyled = styled.h1`
 			? "var(--xlheading)"
 			: props.size === "reportsheading"
 			? "var(--reportsheading)"
+			: props.size === "sectionHeading"
+			? "var(--sectionHeading)"
 			: props.size === "smallheading"
 			? "var(--smallheading)"
 			: props.size === "heading"
@@ -38,6 +40,7 @@ const TitleStyled = styled.h1`
 			: props.weight === "medium"
 			? "600"
 			: "400"};
+	line-height: 1.3;
 `;
 
 export default function Title(props) {

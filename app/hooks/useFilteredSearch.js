@@ -83,7 +83,7 @@ export const useFilteredEventSearch = () => {
 
 export const useFilteredSearch = (
 	itemTypeUrlSegment,
-	searchTerm,
+	searchTerm = '',
 	hasCategories = false
 ) => {
 	const [isLoading, setIsLoading] = useState(true);

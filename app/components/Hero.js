@@ -1,13 +1,14 @@
-"use client";
-import { styled } from "styled-components";
-import Section from "./Section";
-import Title from "./Title";
-import PostFilters from "./PostFilters";
-
+'use client';
+import { styled } from 'styled-components';
+import Section from './Section';
+import Title from './Title';
+import CenteredTextHero from './CenteredTextHero';
+import PostFilters from './PostFilters';
+import { ArchiveHeroContent, ArchiveContentContainer } from './HeroComponents';
 import { DateTime } from "luxon";
-import { useEffect } from "react";
-import { gsap } from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useEffect } from 'react';
+import { gsap } from 'gsap/dist/gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroContent = styled.div`
@@ -129,78 +130,6 @@ const ScrollContent = styled.div`
 	}
 `;
 
-const ArchiveHeroContent = styled.div`
-	width: 100%;
-	padding: 15rem 6rem 0 6rem;
-	display: flex;
-	gap: 4rem;
-	align-items: center;
-	justify-content: space-between;
-
-	& h1 {
-		text-align: left;
-	}
-
-	@media only screen and (max-width: 1100px) {
-		padding: 14rem 4rem 0 4rem;
-		flex-direction: column;
-
-		& h1,
-		& p {
-			text-align: center;
-		}
-	}
-
-	@media only screen and (max-width: 655px) {
-		padding: 14rem 2rem 0rem 2rem;
-	}
-`;
-
-const ArchiveContentContainerSingle = styled.div`
-	color: var(--white);
-	padding: 0 0 4rem 0;
-	width: 100%;
-	& h1 {
-		font-family: var(--sans-serif);
-		line-height: 1.2;
-		margin: auto;
-		text-align: center;
-	}
-
-	& p {
-		font-family: var(--sans-serif);
-		color: var(--white);
-		font-weight: 400;
-		font-size: var(--body);
-		line-height: 1.5;
-		padding: 2rem 0 0 0;
-	}
-	@media only screen and (max-width: 820px) {
-		& h1 {
-			font-family: var(--sans-serif);
-			line-height: 1.2;
-			margin: auto;
-			text-align: center;
-			font-size: 3.5rem;
-		}
-	}
-`;
-
-const ArchiveContentContainer = styled.div`
-	color: var(--white);
-
-	& h1 {
-		font-family: var(--sans-serif);
-	}
-
-	& p {
-		font-family: var(--sans-serif);
-		color: var(--white);
-		font-weight: 400;
-		font-size: var(--body);
-	}
-`;
-
 const ThreeQuarters = styled.div`
 	width: 100%;
 	padding: 15rem 6rem 0 6rem;
@@ -241,26 +170,26 @@ export default function Hero(props) {
 		Image,
 		Type,
 		publishedAt,
-		reportTitle,
+		// reportTitle,
 	} = props;
 
 	useEffect(() => {
 		const boxes = gsap.utils.toArray('.scrollIcon');
-			boxes.forEach((box) => {
-			  gsap.to(box, {
+		boxes.forEach((box) => {
+			gsap.to(box, {
 				autoAlpha: 0,
 				scrollTrigger: {
-				  trigger: box,
-				  start: 'bottom bottom',
-				  end: 'top 20%',
-				  scrub: true,
+					trigger: box,
+					start: 'bottom bottom',
+					end: 'top 20%',
+					scrub: true,
 				},
-			  });
 			});
-		}, []);
+		});
+	}, []);
 
 	switch (Type) {
-		case "home":
+		case 'home':
 			return (
 				<Section bgimage={`${Image.data.attributes.url}`}>
 					<HeroContent>
@@ -283,8 +212,8 @@ export default function Hero(props) {
 					</ScrollContent>
 				</Section>
 			);
-		case "full":
-		case "threeQuarters":
+		case 'full':
+		case 'threeQuarters':
 			return (
 				<Section none={true}>
 					<ThreeQuarters>
@@ -301,7 +230,7 @@ export default function Hero(props) {
 					</ThreeQuarters>
 				</Section>
 			);
-		case "postArchive":
+		case 'postArchive':
 			return (
 				<Section none={true}>
 					<ArchiveHeroContent>
@@ -321,34 +250,11 @@ export default function Hero(props) {
 					</ArchiveHeroContent>
 				</Section>
 			);
-		case "postSingle":
+		case 'postSingle':
 			let date = new Date(publishedAt);
+			// TODO - Pass formatted date into "text" prop as needed
 
-			return (
-				<Section none={true}>
-					<ArchiveHeroContent>
-						<ArchiveContentContainerSingle>
-							<Title
-								as="h1"
-								color="white"
-								size="heading"
-								weight="medium"
-								align="center"
-							>
-								{reportTitle}
-							</Title>
-							{/* <p style={{ textAlign: "center" }}>
-								Published on{" "}
-								{`${date.toLocaleString("default", {
-									month: "long",
-									day: "numeric",
-									year: "numeric",
-								})}`}
-							</p>*/}
-						</ArchiveContentContainerSingle>
-					</ArchiveHeroContent>
-				</Section>
-			);
+			return <CenteredTextHero title={title} text={""} />;
 		default:
 			break;
 	}

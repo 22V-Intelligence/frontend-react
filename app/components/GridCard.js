@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const GridCard = styled.article`
 	background-color: white;
-	padding: 3rem 2rem 2rem;
+	padding: 2rem;
 	border-radius: 1rem;
 	display: flex;
 	border: 2px solid;

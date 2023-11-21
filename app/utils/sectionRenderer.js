@@ -13,6 +13,10 @@ import FeatureList from "../components/FeatureList";
 import Form from "../components/Form";
 import EventList from "../components/EventList";
 import AnalystsGrid from "../components/AnalystsGrid";
+import WebinarList from "../components/WebinarList";
+import PodcastDetails from "../components/PodcastDetails";
+import EmbeddedMedia from "../components/EmbeddedMedia"
+import VideoDetails from "../components/VideoDetails";
 
 export default async function sectionRenderer(sections, index) {
 	const sectionsToDisplay = [];
@@ -95,6 +99,26 @@ export default async function sectionRenderer(sections, index) {
 			case "layout.analysts-grid":
 				sectionsToDisplay.push(
 					<AnalystsGrid key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.webinar-list":
+				sectionsToDisplay.push(
+					<WebinarList key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.podcast-details":
+				sectionsToDisplay.push(
+					<PodcastDetails key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.video-details":
+				sectionsToDisplay.push(
+					<VideoDetails key={`section-${index}`} {...section} />
+				);
+				break;
+			case "layout.embedded-media":
+				sectionsToDisplay.push(
+					<EmbeddedMedia key={`section-${index}`} {...section} />
 				);
 				break;
 			default:
