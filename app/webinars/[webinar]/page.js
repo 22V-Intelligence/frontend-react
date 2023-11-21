@@ -11,6 +11,7 @@ export default async function Page({ params }) {
 	return (
 		<WebinarPage
 			title={attributes?.Title}
+			description={attributes?.Description}
 			thumbnail={attributes?.Thumbnail}
 			type={attributes?.Type}
 			publishedAt={attributes?.publishedAt}

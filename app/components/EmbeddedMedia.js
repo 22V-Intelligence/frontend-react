@@ -9,6 +9,10 @@ const Section = styled.section`
 	padding: 6rem 6rem;
 	position: relative;
 
+	.embed {
+		margin-top: 1rem;
+	}
+
 	@media only screen and (max-width: 1100px) {
 		& {
 			padding: 6rem 4rem;
@@ -22,17 +26,26 @@ const Section = styled.section`
 	}
 `;
 
-const SpotifyPodcastEmbed = ({
-	Title: title = 'More from 22VI on Spotify',
-	EmbedCode,
-}) => {
+const EmbeddedMedia = ({ Title: title, EmbedCode }) => {
 	return (
 		<Section>
-			<Title>{title}</Title>
+			{title && (
+				<Title
+					as="h2"
+					color="darkblue"
+					weight="medium"
+					size="sectionHeading"
+				>
+					{title}
+				</Title>
+			)}
 
-			<div dangerouslySetInnerHTML={{ __html: EmbedCode }}></div>
+			<div
+				className="embed"
+				dangerouslySetInnerHTML={{ __html: EmbedCode }}
+			></div>
 		</Section>
 	);
 };
 
-export default SpotifyPodcastEmbed;
+export default EmbeddedMedia;

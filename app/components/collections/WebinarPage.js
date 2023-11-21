@@ -21,7 +21,7 @@ export const WebinarPage = ({
 					smallTextBottom="22VI Macro Fast Break"
 				/>
 			) : (
-				<CenteredTextHero title={title} text={description} />
+				<CenteredTextHero title={title} description={description} />
 			)}
 			{sectionRenderer(sections)}
 		</>
