@@ -14,6 +14,8 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Search from './Search';
 import { SearchResult } from './SearchResult';
 import useDebouncedState from './../hooks/useDebouncedState';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,7 +111,6 @@ const NavContainerLeft = styled.div`
 	width: calc(33.33% - 0.5rem);
 	transition: 0.3s ease all;
 `;
-
 const NavContainerCenter = styled.div`
 	width: calc(33.33% - 0.5rem);
 	display: flex;
@@ -117,7 +118,6 @@ const NavContainerCenter = styled.div`
 	justify-content: flex-end;
 	gap: 2rem;
 `;
-
 const NavContainerRight = styled.div`
 	display: flex;
 	align-items: center;
@@ -137,7 +137,6 @@ const NavContainerRight = styled.div`
 		}
 	}
 `;
-
 const NavSection = styled.nav`
 	display: flex;
 	align-items: center;
@@ -242,7 +241,6 @@ const NavSection = styled.nav`
 		z-index: 1;
 	}
 `;
-
 const Hamburger = styled.div`
 	margin: 0rem 1rem;
 	display: flex;
@@ -270,7 +268,6 @@ const Hamburger = styled.div`
 		transition: all 0.5s;
 	}
 `;
-
 const MobileMenu = styled.div`
 	position: fixed;
 	right: -100%;
@@ -332,7 +329,6 @@ const MobileMenuContainer = styled.div`
 	gap: 2rem;
 	height: 100%;
 `;
-
 const LogInMenu = styled.ul`
 	display: flex;
 	gap: 0.8rem;
@@ -359,7 +355,6 @@ const LogInMenu = styled.ul`
 		filter: invert(0);
 	}
 `;
-
 const TopMenu = styled.div`
 	padding: 4rem 2rem 0 2rem;
 
@@ -388,7 +383,6 @@ const TopMenu = styled.div`
 		line-height: 2.5;
 	}
 `;
-
 const BottomMenu = styled.div`
 	width: 100%;
 	display: flex;
@@ -432,7 +426,6 @@ const BottomMenu = styled.div`
 		letter-spacing: 0.1rem;
 	}
 `;
-
 const Underlay = styled.div`
 	position: fixed;
 	top: 0;
@@ -451,11 +444,9 @@ const Underlay = styled.div`
 		display: block;
 	}
 `;
-
 const IconAction = styled.button`
 	display: inline-flex;
 `;
-
 const SearchContainer = styled.div`
 	padding: 2rem 2rem 1rem;
 	position: fixed;
@@ -478,7 +469,6 @@ const SearchContainer = styled.div`
 		margin-bottom: 1rem;
 	}
 `;
-
 const SearchResultsContainer = styled.div`
 	position: fixed;
 	left: 2rem;
@@ -525,6 +515,8 @@ export default function Header() {
 	const [searchResults, setSearchResults] = useState({});
 	const [searchTerm, setSearchTerm] = useDebouncedState('', 500);
 	const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+	const session = useSession();
 
 	useEffect(() => {
 		// Hide search when route changes
@@ -597,6 +589,8 @@ export default function Header() {
 		}
 	}, [searchTerm]);
 
+	console.log(session);
+
 	return (
 		<StyledHeader className="sitebranding">
 			<AnnoucementBar>
@@ -656,7 +650,6 @@ export default function Header() {
 			</LogoImage>
 			<HeaderContainer>
 				<NavContainerLeft></NavContainerLeft>
-
 				<NavContainerRight>
 					<NavSection>
 						<Link href="/reports" className="mainLink">
@@ -665,30 +658,72 @@ export default function Header() {
 						<Link href="/webinars" className="mainLink">
 							Webinars
 						</Link>
-						<Link className="linkwbtn" href="#">
-							Log In{' '}
-							<Image
-								src={AngledArrow}
-								alt="angled arrow"
-								width={15}
-								height={15}
-							/>
-						</Link>
-						<Link href="#">
-							<div className="primaryBtn">
-								<span>
-									Sign Up{' '}
+						{!session.data ? (
+							<>
+								<Link className="linkwbtn" href="/sign-in">
+									Log In{' '}
 									<Image
 										src={AngledArrow}
 										alt="angled arrow"
 										width={15}
 										height={15}
 									/>
-								</span>
-								<div className="border"></div>
-								<div className="background"></div>
-							</div>
-						</Link>
+								</Link>
+								<Link href="/register">
+									<div className="primaryBtn">
+										<span>
+											Sign Up{' '}
+											<Image
+												src={AngledArrow}
+												alt="angled arrow"
+												width={15}
+												height={15}
+											/>
+										</span>
+										<div className="border"></div>
+										<div className="background"></div>
+									</div>
+								</Link>
+							</>
+						) : (
+							<>
+								<Link
+									className="linkwbtn"
+									href="/sign-out"
+									onClick={() =>
+										signOut({ callbackUrl: '/' })
+									}
+								>
+									Sign Out{' '}
+									<Image
+										src={AngledArrow}
+										alt="angled arrow"
+										width={15}
+										height={15}
+									/>
+								</Link>
+								<Link href="/register">
+									<div className="primaryBtn">
+										<span>
+											{session?.data?.user
+												? session?.data?.user.username.slice(
+														0,
+														1
+												  )
+												: ''}{' '}
+											<Image
+												src={AngledArrow}
+												alt="angled arrow"
+												width={15}
+												height={15}
+											/>
+										</span>
+										<div className="border"></div>
+										<div className="background"></div>
+									</div>
+								</Link>
+							</>
+						)}
 						<IconAction
 							className="button-reset"
 							onClick={() => setIsSearchVisible(true)}
