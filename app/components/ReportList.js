@@ -131,7 +131,7 @@ export default function ReportList(props) {
 												''
 											}
 										>
-											<GridCard key={`rcard-${index}`}>
+											<GridCard>
 												<TitleContainer>
 													{report?.attributes?.Title}
 												</TitleContainer>

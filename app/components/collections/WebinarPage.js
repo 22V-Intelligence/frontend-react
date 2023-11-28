@@ -3,6 +3,7 @@
 import sectionRenderer from '../../utils/sectionRenderer';
 import MediaThumbnailHero from '@/app/components/MediaThumbnailHero';
 import CenteredTextHero from '../CenteredTextHero';
+import RelatedPosts from '../RelatedPosts';
 
 export const WebinarPage = ({
 	title,
@@ -10,6 +11,7 @@ export const WebinarPage = ({
 	description,
 	type,
 	sections,
+	posts,
 }) => {
 	return (
 		<>
@@ -24,6 +26,15 @@ export const WebinarPage = ({
 				<CenteredTextHero title={title} description={description} />
 			)}
 			{sectionRenderer(sections)}
+
+			<RelatedPosts
+				title="Heading About Webinars"
+				subtitle="Latest Webinars"
+				viewAllText="View all Webinars"
+				slug="webinars"
+				displayPublishedAt={false}
+				posts={posts}
+			/>
 		</>
 	);
 };
