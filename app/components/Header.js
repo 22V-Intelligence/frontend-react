@@ -529,6 +529,8 @@ export default function Header() {
 	useEffect(() => {
 		// Hide search when route changes
 		setIsSearchVisible(false);
+		// Close menu when route changes
+		closeMenu()
 	}, [pathname]);
 
 	function toggleNav() {
@@ -581,6 +583,10 @@ export default function Header() {
 			return !result.HideFromSearch;
 		});
 	};
+
+	const closeMenu = () => {
+		setNavIsOpen(false)
+	}
 
 	useEffect(() => {
 		ScrollTrigger.create({
