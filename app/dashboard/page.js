@@ -43,9 +43,6 @@ export default function SignInPage() {
 
 	const session = useSession();
 
-	console.log('USER:', session);
-	console.log('path: ', NextRequest.path);
-
 	async function handleSignIn(e) {
 		e.preventDefault();
 
@@ -56,7 +53,6 @@ export default function SignInPage() {
 		});
 
 		if (res.status === 200) {
-			console.log('Login Successfully:', res);
 			setError(null);
 		}
 

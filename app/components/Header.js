@@ -522,7 +522,7 @@ export default function Header() {
 		// Hide search when route changes
 		setIsSearchVisible(false);
 		// Close menu when route changes
-		closeMenu()
+		closeMenu();
 	}, [pathname]);
 
 	function toggleNav() {
@@ -577,8 +577,8 @@ export default function Header() {
 	};
 
 	const closeMenu = () => {
-		setNavIsOpen(false)
-	}
+		setNavIsOpen(false);
+	};
 
 	useEffect(() => {
 		ScrollTrigger.create({
@@ -594,8 +594,6 @@ export default function Header() {
 			fetchGlobalSearchResults(searchTerm);
 		}
 	}, [searchTerm]);
-
-	console.log(session);
 
 	return (
 		<StyledHeader className="sitebranding">

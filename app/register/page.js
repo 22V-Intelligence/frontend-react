@@ -62,8 +62,6 @@ export default function RegisterPage() {
 			}, 5000);
 			return;
 		}
-
-		console.log('register data: ', registerResponse);
 	}
 
 	async function handleProviderSignIn(e) {
@@ -73,7 +71,7 @@ export default function RegisterPage() {
 			redirect: false,
 			callbackUrl: '/sign-in',
 		}).then((response) => {
-			console.log('provider sign in response: ', response);
+			// console.log('provider sign in response: ', response);
 		});
 	}
 
