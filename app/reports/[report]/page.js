@@ -20,8 +20,7 @@ export default async function Page({ params: { report } }) {
 
 	if (!title) notFound();
 
-	console.log('data: ', data);
-	console.log('sections: ', sections);
+	console.log(session);
 	const sections = data?.data[0]?.attributes?.Sections;
 
 	const publishedAt = data?.data[0]?.attributes?.publishedAt;

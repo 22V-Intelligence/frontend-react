@@ -170,7 +170,7 @@ export default function AnalystsGrid(props) {
 			<AnalystsModal id="analyst-modal">
 				<AnalystsModalInnerContainer>
 					<MediaContainer
-						$bg={currentAnalyst.Image.data.attributes.url}
+						$bg={currentAnalyst?.Image?.data?.attributes?.url}
 					></MediaContainer>
 					<ContentContainer>
 						<CloseButton
