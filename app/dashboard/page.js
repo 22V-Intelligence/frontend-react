@@ -1,82 +1,118 @@
 'use client';
 import { useState } from 'react';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import styled from 'styled-components';
-import Title from '../components/Title';
-import { NextRequest } from 'next/server';
 
-const RegisterMainSection = styled.section`
-	height: 70vh;
+const DashboardMainSection = styled.section`
+	margin-top: 12rem;
+	min-height: 60vh;
 `;
-const RegisterFormContainer = styled.div`
-	display: grid;
-	place-items: center;
-	height: 100%;
+const InnerContainer = styled.div`
+	background-color: white;
 `;
-const InnerContainer = styled.form``;
+const TopBarContainer = styled.div``;
+const Label = styled.label``;
+const TitleSection = styled.div``;
+const PersonalDetailsSection = styled.form``;
+const ChangePasswordSection = styled.div``;
+const DeactivateYourAccountSection = styled.div``;
+const SupportSection = styled.div``;
 const FieldGroup = styled.div``;
 const StyledInput = styled.input`
 	width: 100%;
 `;
+const StyledLabel = styled.label``;
 const StyledButton = styled.button`
 	width: 100%;
 `;
-const SubContent = styled.div`
-	display: flex;
-	gap: 1rem;
-	color: #fff;
-`;
-
 const ErrorMessage = styled.p`
 	color: white;
 `;
 
 export default function SignInPage() {
 	const [userData, setUserData] = useState({
-		username: '',
+		name: '',
 		email: '',
 		password: '',
+		phone: '',
+		business: '',
+		contactPreference: '',
 	});
+	const [currentTitle, setCurrentTitle] = useState('Account Settings');
+
 	// use error state
 	const [error, setError] = useState(null);
 
+	// get currenct session
 	const session = useSession();
 
-	async function handleSignIn(e) {
+	// redirect user to homepage if not logged in
+	if (!session || session.data === null) redirect('/');
+
+	console.log({ session });
+
+	async function handleUserUpdate(e) {
 		e.preventDefault();
 
-		const res = await signIn('credentials', {
-			...userData,
-			redirect: false,
-			callbackUrl: '/sign-in',
+		const res = await fetch('/api/user', {
+			method: 'PUT',
+			body: JSON.stringify(userData),
 		});
 
 		if (res.status === 200) {
 			setError(null);
 		}
-
-		if (res.status === 401) setError('Invalid Credential');
 	}
 
-	async function handleProviderSignIn(e) {
+	async function handleChangePassword(e) {
 		e.preventDefault();
-		signIn('google', {
-			userData,
-			redirect: false,
-			callbackUrl: '/sign-in',
-		}).then((response) => {
-			console.log('provider sign in response: ', response);
+
+		const res = await fetch('/api/user', {
+			method: 'PUT',
+			body: JSON.stringify(userData),
 		});
+
+		if (res.status === 200) {
+			setError(null);
+		}
 	}
 
 	return (
-		<RegisterMainSection>
-			<RegisterFormContainer>
-				<InnerContainer onSubmit={handleSignIn}>
-					<Title>Sign In</Title>
-					{error && <ErrorMessage>{error}</ErrorMessage>}
+		<DashboardMainSection>
+			<InnerContainer>
+				<TopBarContainer>
+					<Label onClick={() => setCurrentTitle('Account Settings')}>
+						Account Settings
+					</Label>
+					<Label onClick={() => setCurrentTitle('Cookie Settings')}>
+						Cookie Settings
+					</Label>
+					<StyledButton onClick={handleUserUpdate}></StyledButton>
+				</TopBarContainer>
+				<TitleSection>
+					<h1>{currentTitle}</h1>
+				</TitleSection>
+				<PersonalDetailsSection>
 					<FieldGroup>
+						<StyledLabel>Full name</StyledLabel>
+						<StyledInput
+							aria-label="name input"
+							name="name"
+							type="text"
+							placeholder="name"
+							required
+							onChange={(e) =>
+								setUserData({
+									...userData,
+									name: e.target.value,
+								})
+							}
+						/>
+					</FieldGroup>
+					<FieldGroup>
+						<StyledLabel>Email</StyledLabel>
 						<StyledInput
 							aria-label="email input"
 							name="email"
@@ -86,18 +122,68 @@ export default function SignInPage() {
 							onChange={(e) =>
 								setUserData({
 									...userData,
-									username: e.target.value,
 									email: e.target.value,
 								})
 							}
 						/>
 					</FieldGroup>
 					<FieldGroup>
+						<StyledLabel>Phone</StyledLabel>
 						<StyledInput
-							aria-label="password input"
-							name="email"
+							aria-label="phone input"
+							name="phone"
+							type="tel"
+							placeholder="phone"
+							required
+							onChange={(e) =>
+								setUserData({
+									...userData,
+									phone: e.target.value,
+								})
+							}
+						/>
+					</FieldGroup>
+					<FieldGroup>
+						<StyledLabel>Business</StyledLabel>
+						<StyledInput
+							aria-label="business input"
+							name="business"
+							type="text"
+							placeholder="business"
+							required
+							onChange={(e) =>
+								setUserData({
+									...userData,
+									business: e.target.value,
+								})
+							}
+						/>
+					</FieldGroup>
+					<FieldGroup>
+						<legend>Contact Preference</legend>
+						<input
+							name="contactPreference"
+							id="text-preference"
+							type="radio"
+						/>
+						<label htmlFor="text-preference">Text</label>
+						<input
+							name="contactPreference"
+							id="email-preference"
+							type="radio"
+						/>
+						<label htmlFor="email-preference">Email</label>
+					</FieldGroup>
+				</PersonalDetailsSection>
+				<ChangePasswordSection>
+					<h1>Change Password</h1>
+					<FieldGroup>
+						<StyledLabel>Current Password</StyledLabel>
+						<StyledInput
+							aria-label="current password input"
+							name="current-password"
 							type="password"
-							placeholder="password"
+							placeholder="current password"
 							required
 							onChange={(e) =>
 								setUserData({
@@ -107,21 +193,61 @@ export default function SignInPage() {
 							}
 						/>
 					</FieldGroup>
-					<StyledButton type="submit" value="Submit">
-						Submit
+					<FieldGroup>
+						<StyledLabel>New Password</StyledLabel>
+						<StyledInput
+							aria-label="new password input"
+							name="new-password"
+							type="password"
+							placeholder="new password"
+							required
+							onChange={(e) =>
+								setUserData({
+									...userData,
+									password: e.target.value,
+								})
+							}
+						/>
+					</FieldGroup>
+					<FieldGroup>
+						<StyledLabel>Confirm New Password</StyledLabel>
+						<StyledInput
+							aria-label="confirm new password input"
+							name="confirm-new-password"
+							type="password"
+							placeholder="confirm new password"
+							required
+							onChange={(e) =>
+								setUserData({
+									...userData,
+									password: e.target.value,
+								})
+							}
+						/>
+					</FieldGroup>
+					<StyledButton onClick={handleChangePassword}>
+						Change Password
 					</StyledButton>
-					<hr />
-					<div key={`google-provider`}>
-						<button onClick={(e) => handleProviderSignIn(e)}>
-							Sign in with Google
-						</button>
-					</div>
-					<SubContent>
-						<p>Don't have an account?</p>
-						<Link href="/register">Sign Up</Link>
-					</SubContent>
-				</InnerContainer>
-			</RegisterFormContainer>
-		</RegisterMainSection>
+				</ChangePasswordSection>
+				<DeactivateYourAccountSection>
+					<h1>Deactivate Your Account</h1>
+					<p>
+						Deactivating your account will disable your profile and
+						remove your name and photo from most things you've
+						shared on our platform. Some information may still be
+						visible to others, such as your name in their friends
+						lists and messages you sent.
+					</p>
+					<StyledButton>Deactivate Account</StyledButton>
+				</DeactivateYourAccountSection>
+				<SupportSection>
+					<h1>Support</h1>
+					<p>
+						Have a question or need help? Contact us at{' '}
+						<a href="mailto:email">email</a>
+					</p>
+				</SupportSection>
+			</InnerContainer>
+		</DashboardMainSection>
 	);
 }

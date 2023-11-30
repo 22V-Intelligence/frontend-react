@@ -5,6 +5,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import Title from '../components/Title';
 import { NextRequest } from 'next/server';
+import { useSearchParams } from 'next/navigation';
 
 const RegisterMainSection = styled.section`
 	height: 70vh;
@@ -42,23 +43,23 @@ export default function SignInPage() {
 	const [error, setError] = useState(null);
 
 	const session = useSession();
-
-	console.log('USER:', session);
-	console.log('path: ', NextRequest.path);
+	const params = useSearchParams();
+	console.log(params.get('callbackUrl'));
 
 	async function handleSignIn(e) {
 		e.preventDefault();
 
 		const res = await signIn('credentials', {
 			...userData,
-			redirect: false,
-			callbackUrl: '/sign-in',
+			redirect: true,
+			callbackUrl: params.get('callbackUrl'),
 		});
 
 		if (res.status === 200) {
-			console.log('Login Successfully:', res);
 			setError(null);
 		}
+
+		console.log(res);
 
 		if (res.status === 401) setError('Invalid Credential');
 	}
@@ -68,9 +69,9 @@ export default function SignInPage() {
 		signIn('google', {
 			userData,
 			redirect: false,
-			callbackUrl: '/sign-in',
+			callbackUrl: params.get('callbackUrl'),
 		}).then((response) => {
-			console.log('provider sign in response: ', response);
+			// console.log('provider sign in response: ', response);
 		});
 	}
 

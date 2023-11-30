@@ -5,6 +5,7 @@ import Hero from '@/app/components/Hero';
 import RelatedPosts from '../RelatedPosts';
 
 export const ReportPage = ({ title, publishedAt, sections, posts }) => {
+	// console.log({ sections });
 	return (
 		<>
 			<Hero Title={title} Type="postSingle" publishedAt={publishedAt} />

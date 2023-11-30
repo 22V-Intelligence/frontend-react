@@ -41,13 +41,11 @@ const StyledHeader = styled.header`
 		background: var(--darkblue);
 	}
 `;
-
 const TopBar = styled.div`
 	width: 100%;
 	margin: auto;
 	position: relative;
 `;
-
 const AnnoucementBar = styled.div`
 	background: linear-gradient(
 		45deg,
@@ -664,7 +662,10 @@ export default function Header() {
 						</Link>
 						{!session.data ? (
 							<>
-								<Link className="linkwbtn" href="/sign-in">
+								<Link
+									className="linkwbtn"
+									href={`/sign-in/?callbackUrl=${pathname}`}
+								>
 									Log In{' '}
 									<Image
 										src={AngledArrow}
@@ -706,7 +707,7 @@ export default function Header() {
 										height={15}
 									/>
 								</Link>
-								<Link href="/register">
+								<Link href="/dashboard">
 									<div className="primaryBtn">
 										<span>
 											{session?.data?.user

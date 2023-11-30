@@ -1,6 +1,5 @@
 import { getServerSession } from 'next-auth';
 import getReportBySlug, { getReports } from '../../../lib/getReportBySlug';
-import getPageSections from '@/lib/getPageSections';
 import { ReportPage } from '@/app/components/collections/ReportPage';
 import { notFound, redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -11,7 +10,6 @@ export default async function Page({ params: { report } }) {
 	const session = await getServerSession(authOptions);
 
 	if (!session) redirect(`/sign-in?callbackUrl=/reports/${report}`);
-
 	if (!report) notFound();
 
 	const data = await getReportBySlug(report);
@@ -22,10 +20,9 @@ export default async function Page({ params: { report } }) {
 
 	if (!title) notFound();
 
-	const sections = data.data[0]?.attributes?.Sections;
-
 	console.log('data: ', data);
 	console.log('sections: ', sections);
+	const sections = data?.data[0]?.attributes?.Sections;
 
 	const publishedAt = data?.data[0]?.attributes?.publishedAt;
 
