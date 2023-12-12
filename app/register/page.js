@@ -154,6 +154,7 @@ const SubContent = styled.div`
 	& a {
 		font-size: var(--nav);
 		text-transform: uppercase;
+		font-weight: 600;
 	}
 `;
 
