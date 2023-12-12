@@ -41,10 +41,11 @@ const TitleStyled = styled.h1`
 			? "600"
 			: "400"};
 	line-height: 1.3;
+	text-transform: ${(props) => props.transform === "uppercase" ? "uppercase" : "none"};
 `;
 
 export default function Title(props) {
-	const { as, size, color, align, weight } = props;
+	const { as, size, color, align, weight, transform } = props;
 
 	return (
 		<TitleStyled
@@ -52,7 +53,8 @@ export default function Title(props) {
 			size={size}
 			color={color}
 			align={align}
-			weight={weight}>
+			weight={weight}
+			transform={transform}>
 			{props.children}
 		</TitleStyled>
 	);

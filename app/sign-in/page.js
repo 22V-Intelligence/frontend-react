@@ -79,7 +79,7 @@ export default function SignInPage() {
 		<RegisterMainSection>
 			<RegisterFormContainer>
 				<InnerContainer onSubmit={handleSignIn}>
-					<Title>Sign In</Title>
+					<Title>Log In</Title>
 					{error && <ErrorMessage>{error}</ErrorMessage>}
 					<FieldGroup>
 						<StyledInput
