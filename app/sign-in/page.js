@@ -226,7 +226,7 @@ export default function SignInPage() {
 							aria-label="email input"
 							name="email"
 							type="email"
-							placeholder="email"
+							placeholder="Enter Email*"
 							required
 							onChange={(e) =>
 								setUserData({
@@ -245,7 +245,7 @@ export default function SignInPage() {
 							aria-label="password input"
 							name="password"
 							type="password"
-							placeholder="password"
+							placeholder="Enter Password*"
 							required
 							onChange={(e) =>
 								setUserData({
